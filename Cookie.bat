@@ -71,6 +71,10 @@ IF /I "%command%"=="debug" (
 
 IF /I "%command%"=="files" GOTO Files
 
+ECHO The command, [92m%command%[0m, was unrecognized.
+ECHO.
+GOTO :Command
+
 :Files
 IF /I "%mode%" NEQ "files" (
    CLS
