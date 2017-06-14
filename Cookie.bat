@@ -24,11 +24,19 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 echo Welcome to [91;1mCookie[0m!
 echo.
 :::: TODO Extract to an initialization file.
+
+echo Initializing [91mGlobal Variables[0m
+SET adminMode=FALSE
+SET debugMode=FALSE
+SET mode="none"
+
 echo Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
 powershell "start-sleep -m 0"
+
 echo.
 echo [93;1mDONE[0m [93;1m:D[0m
+
 powershell "sleep -m 1500"
 
 :: Scroll down (move text up) by one line each call (each second). This occurs five times. At last the program
@@ -51,4 +59,27 @@ echo [97;1mPlease enter your command below.[0m
 echo.
 SET /P command=""
 
-:::: TODO Check the user's command.
+IF /I "%command%"=="admin" (
+   SET adminMode=TRUE
+   goto Command
+)
+
+IF /I "%command%"=="debug" (
+   SET debugMode=TRUE
+   goto Command
+)
+
+IF /I "%command%"=="files" goto Files
+
+:Files
+IF /I "%mode%" NEQ "files" (
+   ECHO You have entered [91mFile Mode[0m
+   ECHO To leave [91mFile Mode[0m, type use command [92mexit[0m.
+   ECHO Type [92mhelp[0m and press enter for a list of commands.
+   SET mode="files"
+)
+
+ECHO.
+ECHO Please enter a command below.
+ECHO.
+SET /P command=""
