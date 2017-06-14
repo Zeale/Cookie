@@ -24,11 +24,18 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 echo Welcome to [91;1mCookie[0m!
 echo.
 :::: TODO Extract to an initialization file.
+
+echo Initializing [91mData[0m
+SET adminMode=FALSE
+SET debugMode=FALSE
+
 echo Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
 powershell "start-sleep -m 0"
+
 echo.
 echo [93;101;1mDONE[0m [93m:D[0m
+
 powershell "sleep -m 1500"
 
 :: Scroll down (move text up) by one line each call (each second). This occurs five times. At last the program
