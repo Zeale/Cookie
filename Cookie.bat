@@ -58,4 +58,7 @@ echo [97;1mPlease enter your command below.[0m
 echo.
 SET /P command=""
 
-:::: TODO Check the user's command.
+IF /I "%command%"=="admin" (
+   SET adminMode=TRUE
+   goto Command
+)
