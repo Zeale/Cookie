@@ -28,7 +28,7 @@ echo Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
 powershell "start-sleep -m 0"
 echo.
-echo [93;101;1mDONE[0m [93m:D[0m
+echo [93;1mDONE[0m [93;1m:D[0m
 powershell "sleep -m 1500"
 
 :: Scroll down (move text up) by one line each call (each second). This occurs five times. At last the program
