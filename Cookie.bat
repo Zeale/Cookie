@@ -68,3 +68,13 @@ IF /I "%command%"=="debug" (
    SET debugMode=TRUE
    goto Command
 )
+
+IF /I "%command%"=="files" goto Files
+
+:Files
+IF /I "%mode%" NEQ "files" (
+   ECHO You have entered [91mFile Mode[0m
+   ECHO To leave [91mFile Mode[0m, run the command [92mexit[0m.
+   ECHO Type [92mhelp[0m and press enter for a list of commands.
+   SET mode="files"
+)
