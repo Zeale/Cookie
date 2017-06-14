@@ -25,9 +25,10 @@ echo Welcome to [91;1mCookie[0m!
 echo.
 :::: TODO Extract to an initialization file.
 
-echo Initializing [91mData[0m
+echo Initializing [91mGlobal Variables[0m
 SET adminMode=FALSE
 SET debugMode=FALSE
+SET mode="none"
 
 echo Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
