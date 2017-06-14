@@ -25,7 +25,7 @@ echo Welcome to [91;1mCookie[0m!
 echo.
 :::: TODO Extract to an initialization file.
 
-echo Initializing [91mGlobal Variables[0m
+echo Initializing [91mGlobal Variables[0m
 SET adminMode=FALSE
 SET debugMode=FALSE
 SET mode="none"
@@ -73,9 +73,9 @@ IF /I "%command%"=="files" goto Files
 
 :Files
 IF /I "%mode%" NEQ "files" (
-   ECHO You have entered [91mFile Mode[0m
-   ECHO To leave [91mFile Mode[0m, type use command [92mexit[0m.
-   ECHO Type [92mhelp[0m and press enter for a list of commands.
+   ECHO You have entered [91mFile Mode[0m
+   ECHO To leave [91mFile Mode[0m, type use command [92mexit[0m.
+   ECHO Type [92mhelp[0m and press enter for a list of commands.
    SET mode="files"
 )
 
@@ -83,3 +83,5 @@ ECHO.
 ECHO Please enter a command below.
 ECHO.
 SET /P command=""
+
+
