@@ -62,3 +62,8 @@ IF /I "%command%"=="admin" (
    SET adminMode=TRUE
    goto Command
 )
+
+IF /I "%command%"=="debug" (
+   SET debugMode=TRUE
+   goto Command
+)
