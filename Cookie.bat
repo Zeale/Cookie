@@ -20,7 +20,7 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 
 
 :Head
-:: Make sure things haven't already been loaded.
+:: Make sure we don't load things twice
 IF DEFINED Cookie.HeadLoaded (
 	IF "%Cookie.HeadLoaded%"=="TRUE" GOTO Command
 )
