@@ -1,3 +1,4 @@
+:Head
 IF /I NOT %mode%==files (
 	CLS
 	ECHO You have entered [91mFile Mode[0m.
@@ -19,15 +20,14 @@ IF /I "%command%"=="copy" (
 	ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
 	ECHO.
 	SET /P sfile=""
-	IF /I !sfile!==^<back^> GOTO Files
-	IF /I !sfile!==^|back^| GOTO Files
+	IF /I !sfile!==^<back^> GOTO Head
+	IF /I !sfile!==^|back^| GOTO Head
 	IF NOT EXIST "!sfile!" (
 		ECHO [91mThe file, [95m!sfile![91m, could not be found
 		ECHO Press a key to continue...[0m
 		PAUSE > NUL
-		SET "file="
 		ENDLOCAL
-		GOTO Files
+		GOTO Head
 	) ELSE (
 		:: Now we need a place to copy to...
 		ECHO Type the name of the file that you wish to copy the data to. (AKA the destination file.^) [97mA couple things to note:[0m
@@ -45,4 +45,4 @@ destination file.
 		PAUSE > NUL
 	)
 )
-GOTO Files
+GOTO Head
