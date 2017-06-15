@@ -10,6 +10,7 @@ IF /I NOT %mode%==files (
 ECHO Please enter a command below.
 ECHO.
 SET /P command=""
+IF /I "%command%"=="back" EXIT /B
 IF /I "%command%"=="copy" (
 	:: Allows us to access variables inside the IF statement.
 	SETLOCAL enableDelayedExpansion
