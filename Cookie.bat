@@ -80,7 +80,7 @@ IF /I "%command%"=="debug" (
 	GOTO Command
 )
 
-IF /I "%command%"=="files" CALL "Resources/Files.bat"
+IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
 
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
