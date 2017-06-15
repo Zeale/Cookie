@@ -11,6 +11,10 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 
 
 :Head
+:: Make sure things haven't already been loaded.
+IF DEFINED Cookie.HeadLoaded (
+	IF "%Cookie.HeadLoaded%"=="TRUE" GOTO Command
+)
 :: Display our little title
 ECHO Welcome to [91;1mCookie[0m!
 ECHO.
@@ -20,6 +24,10 @@ ECHO Initializing [91mGlobal Variables[0m
 SET adminMode=FALSE
 SET debugMode=FALSE
 SET mode=none
+::::
+:: THE FOLLOWING VARIABLES SHOULD BE TREATED AS IF THEY WERE PRIVATE TO THE HEAD LABEL
+::::
+SET Cookie.HeadLoaded=TRUE
 
 ECHO Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
@@ -48,6 +56,7 @@ CLS
 
 :: Query user for their command.
 :Command
+
 ECHO [97;1mPlease enter your command below.[0m
 ECHO.
 SET /P command=""
@@ -77,14 +86,11 @@ CLS
 ECHO Please enter a command below.
 ECHO.
 SET /P command=""
-echo %command%
-pause
 IF /I "%command%"=="copy" (
 	ECHO Enter the name of the file you wish to copy below.
 	ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
 	ECHO.
 	SET /P file=""
-	ECHO %file%
-	pause
+	ECHO This command is not fully implemented yet. Reverting to Files mode's home.
 )
-pause
+GOTO Files
