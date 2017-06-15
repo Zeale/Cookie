@@ -93,6 +93,8 @@ IF /I "%command%"=="copy" (
 	ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
 	ECHO.
 	SET /P file=""
+	IF /I !file!==^<back^> GOTO Files
+	IF /I !file!==^|back^| GOTO Files
 	IF NOT EXIST "!file!" (
 		ECHO [91mThe file, [95m!file![91m, could not be found.
 		ECHO Press a key to continue...[0m
