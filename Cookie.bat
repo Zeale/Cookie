@@ -75,7 +75,7 @@ GOTO Command
 
 :Files
 IF /I NOT %mode%==files (
-CLS
+	CLS
 	ECHO You have entered [91mFile Mode[0m.
 	ECHO To leave [91mFile Mode[0m, type [92mexit[0m.
 	ECHO Type [92mhelp[0m and press enter for a list of commands.
@@ -87,10 +87,18 @@ ECHO Please enter a command below.
 ECHO.
 SET /P command=""
 IF /I "%command%"=="copy" (
+	:: Allows us to access variables inside the IF statement.
+	SETLOCAL enableDelayedExpansion
 	ECHO Enter the name of the file you wish to copy below.
 	ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
 	ECHO.
 	SET /P file=""
-	ECHO This command is not fully implemented yet. Reverting to Files mode's home.
+	IF NOT EXIST "!file!" (
+		ECHO [91mThe file, [95m!file![91m, could not be found.
+		ECHO Press a key to continue...[0m
+		PAUSE > NUL
+		SET "file="
+		GOTO Files
+	)
 )
 GOTO Files
