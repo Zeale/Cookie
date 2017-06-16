@@ -137,6 +137,9 @@ IF /I "%command%"=="clearscreen" GOTO ClearScreen
 IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
 IF /I "%command:~0,7%"=="install" CALL "%~dp0\Modules\Install.bat" "%command:~8%"
 
+IF /I "%command%"=="color" GOTO Color
+
+
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
 GOTO Command
@@ -158,5 +161,29 @@ IF /I !title!==^<back^> GOTO Command
 IF /I !title!==^|back^| GOTO Command
 :::: TODO generate random title upon user request.
 TITLE !title!
+ENDLOCAL
+GOTO Command
+
+:Color
+cls
+SETLOCAL enableDelayedExpansion
+ECHO Please select an option:
+ECHO.
+ECHO 1: Enter a hex color code.
+ECHO 2: Select colors from a list.
+ECHO.
+ECHO.
+SET /P option=""
+IF "!option!"=="1" (
+	CLS
+	ECHO Please enter a Hex color code below.
+	ECHO.
+	SET /P color=""
+	COLOR !color! || ECHO TEST
+	pause
+	ECHO Colors have been set!
+	GOTO Command
+)
+
 ENDLOCAL
 GOTO Command
