@@ -1,3 +1,4 @@
+:: This file will be included in the initial program.
 @echo off
 IF NOT DEFINED Cookie.HeadLoaded (
 	ECHO Files.bat is an extension of Cookie.bat and, therefore, must be called from Cookie.bat.
@@ -15,11 +16,17 @@ IF /I NOT %mode%=="files" (
 	SET mode="files"
 	ECHO.
 )
-
 ECHO Please enter a command below.
 ECHO.
 SET /P command=""
-IF /I "%command%"=="back" EXIT /B
+IF /I "%command%"=="back" (
+	cls
+	EXIT /B
+)
+IF /I "%command%"=="exit" (
+	cls
+	EXIT /B
+)
 IF /I "%command%"=="copy" (
 	:: Allows us to access variables inside the IF statement.
 	SETLOCAL enableDelayedExpansion
