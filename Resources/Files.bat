@@ -136,5 +136,4 @@ IF !file!==^<back^> GOTO Head
 IF !file!==^|back^| GOTO Head
 DEL !file! && ECHO The delete operation returned successfully. || ECHO The delete operation returned unsuccessfully.
 ENDLOCAL
-GOTO :Head
-
+GOTO Head
