@@ -30,6 +30,39 @@ IF /I "%command%"=="exit" (
 IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
+IF /I "%command%"=="delete" GOTO Delete
+IF /I "%command%"=="delete" GOTO Delete
+IF /I "%command%"=="move" (
+	SETLOCAL enableDelayedExpansion
+	ECHO Enter the file that you wish to move. (Use backslashes in the path name.^)
+	ECHO.
+	SET /P file=""
+	IF NOT EXIST "!file!" (
+		ECHO The given file does not exist.
+		ECHO Exiting the move command.
+		PAUSE
+		ENDLOCAL
+		GOTO Head
+	)
+	ECHO Enter the path to the directory that you wish to move the file to. (Use backslashes in the path name.^)
+	SET /P dir=""
+	IF NOT EXIST !dir!\NUL (
+		IF NOT EXIST !dir! (
+			ECHO The directory given does not exist.
+			PAUSE
+			ENDLOCAL
+			GOTO Head
+		) ELSE (
+			ECHO The directory path given points to a file, not a directory...
+			PAUSE
+			ENDLOCAL
+			GOTO Head
+		)
+	)
+	MOVE "!file!" "!dir!" || ECHO The move operation failed. && ECHO The move operation succeeded.
+	ENDLOCAL
+	GOTO Head
+)
 IF /I "%command%"=="copy" (
 	:: Allows us to access variables inside the IF statement.
 	SETLOCAL enableDelayedExpansion
@@ -91,4 +124,16 @@ cls
 ECHO [96mScreen cleared![0m
 ECHO.
 ECHO.
+GOTO Head
+
+:Delete
+SETLOCAL enableDelayedExpansion
+ECHO Enter the path of the file/directory that you wish to delete below. (Use backslashes to indicate nested items. e.g., C:\folder\file.txt)
+ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
+ECHO.
+SET /P file=""
+IF !file!==^<back^> GOTO Head
+IF !file!==^|back^| GOTO Head
+DEL !file! && ECHO The delete operation returned successfully. || ECHO The delete operation returned unsuccessfully.
+ENDLOCAL
 GOTO Head

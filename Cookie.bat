@@ -95,18 +95,67 @@ ECHO [97;1mPlease enter your command below.[0m
 ECHO.
 SET /P command=""
 
+IF /I "%command%"=="exit" (
+	SET /P check="Are you sure???... (Y/N?)   "
+	IF /I "!check!"=="Y" EXIT /B
+	IF /I "!check!"=="N" (
+		ECHO Aborted exit...
+		GOTO Command
+	)
+)
+
 IF /I "%command%"=="admin" (
-	SET adminMode=TRUE
-	GOTO Command
+	IF /I "%adminMode%"=="TRUE" (
+		SET adminMode=FALSE
+		ECHO Disabled [93madminMode[0m.
+		GOTO Command
+	) ELSE (
+		SET adminMode=TRUE
+		ECHO Enabled [93madminMode[0m.
+		GOTO Command
+	)
 )
 
 IF /I "%command%"=="debug" (
-	SET debugMode=TRUE
-	GOTO Command
+	IF /I "%debugMode%"=="TRUE" (
+		SET debugMode=FALSE
+		ECHO Disabled [93mdebugMode[0m.
+		GOTO Command
+	) ELSE (
+		SET debugMode=TRUE
+		ECHO Enabled [93mdebugMode[0m.
+		GOTO Command
+	)
 )
+
+IF /I "%command%"=="title" GOTO Title
+
+IF /I "%command%"=="cls" GOTO ClearScreen
+IF /I "%command%"=="clrscrn" GOTO ClearScreen
+IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
 IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
 
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
+GOTO Command
+
+:ClearScreen
+cls
+ECHO [96mScreen cleared![0m
+ECHO.
+ECHO.
+GOTO Command
+
+:Title
+ECHO Please enter the title you want to set. (Enter [92m^<random^>[0m or [92m^|random^|[0m for a random title.)
+ECHO Enter [92m^<back^>[0m (or [92m^|back^|[0m) to go back.
+ECHO.
+SETLOCAL enableDelayedExpansion
+SET /P title=""
+IF /I !title!==^<back^> GOTO Command
+IF /I !title!==^|back^| GOTO Command
+:::: TODO generate random title upon user request.
+TITLE !title!
+ENDLOCAL
 GOTO Command
