@@ -135,6 +135,7 @@ IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
 IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
+IF /I "%command:~0,7%"=="install" CALL "%~dp0\Modules\Install.bat" "%command:~8%"
 
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
