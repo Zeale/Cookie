@@ -18,6 +18,30 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 3. All my "TODO" markings have been stated with 4 semicolons, rather than only two. This makes them slightly
 	easier to find.
 
+4. NOTE: If you find a "^" character infornt of any closing parentheses inside an if block, don't remove it.
+	It's used to escape the parenthesis.
+	
+		Remember that batch parses for syntax errors before it begins execution. Batch parses the following IF statement...
+	
+		IF EXIST "C:\Potato\NUL" (
+			ECHO This is a message.
+			:: () <- Ha ha lol. This crashes batch.
+		)
+	
+		...like so:
+	
+		1. Read the 'IF EXIST "C:\..."'
+			• Batch recognizes the IF block and makes sure that the code inside it is syntactically correct. 
+			(It won't check for syntax errors inside nested IF blocks yet.)
+		2. Read the ECHO statement.
+			• This is a valid statement; move on.
+		3. Read the "comment."
+			• Batch sees the opening parenthesis and finds it ok, then it sees the closing parenthesis and 
+			closes the IF block... We can get around this by escaping it, using "^)" instead of ")".
+		4. There is a parenthesis here. The author must've made a mista-
+		
+
+
 
 :Head
 :: Make sure we don't load things twice
