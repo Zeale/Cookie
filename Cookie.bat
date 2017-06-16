@@ -128,6 +128,8 @@ IF /I "%command%"=="debug" (
 	)
 )
 
+IF /I "%command%"=="title" GOTO Title
+
 IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
@@ -144,3 +146,13 @@ ECHO [96mScreen cleared![0m
 ECHO.
 ECHO.
 GOTO Command
+:Title
+ECHO Please enter the title you want to set. (Enter [92m^<random^>[0m or [92m^|random^|[0m for a random title.)
+ECHO.
+SETLOCAL enableDelayedExpansion
+SET /P title=""
+:::: TODO check for user entering ^<back^> or ^|back^|.
+:::: TODO generate random title upon user request.
+TITLE !title!
+ENDLOCAL
+GOTO Command
