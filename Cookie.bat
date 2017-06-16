@@ -38,7 +38,8 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 		3. Read the "comment."
 			• Batch sees the opening parenthesis and finds it ok, then it sees the closing parenthesis and 
 			closes the IF block... We can get around this by escaping it, using "^)" instead of ")".
-		4. There is a parenthesis here. The author must've made a mista-
+		4. Read the closing parenthesis on the bottom line.
+			• "There is a parenthesis here. The author must've made a mista-"
 		
 
 
