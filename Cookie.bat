@@ -95,6 +95,15 @@ ECHO [97;1mPlease enter your command below.[0m
 ECHO.
 SET /P command=""
 
+IF /I "%command%"=="exit" (
+	SET /P check="Are you sure???... (Y/N?)   "
+	IF /I "!check!"=="Y" EXIT /B
+	IF /I "!check!"=="N" (
+		ECHO Aborted exit...
+		GOTO Command
+	)
+)
+
 IF /I "%command%"=="admin" (
 	SET adminMode=TRUE
 	GOTO Command
