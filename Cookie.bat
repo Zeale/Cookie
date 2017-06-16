@@ -128,8 +128,19 @@ IF /I "%command%"=="debug" (
 	)
 )
 
+IF /I "%command%"=="cls" GOTO ClearScreen
+IF /I "%command%"=="clrscrn" GOTO ClearScreen
+IF /I "%command%"=="clearscreen" GOTO ClearScreen
+
 IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
 
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
 GOTO Command
+
+:ClearScreen
+cls
+ECHO [96mScreen cleared![0m
+ECHO.
+ECHO.
+GOTO Command
