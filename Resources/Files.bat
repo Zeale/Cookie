@@ -6,7 +6,8 @@ IF NOT DEFINED Cookie.HeadLoaded (
 )
 
 :Head
-IF /I NOT %mode%==files (
+ENDLOCAL
+IF /I NOT %mode%=="files" (
 	CLS
 	ECHO You have entered [91mFile Mode[0m.
 	ECHO To leave [91mFile Mode[0m, type [92mexit[0m.
