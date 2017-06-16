@@ -145,13 +145,16 @@ cls
 ECHO [96mScreen cleared![0m
 ECHO.
 ECHO.
-GOTO Command
+GOTO Command
+
 :Title
 ECHO Please enter the title you want to set. (Enter [92m^<random^>[0m or [92m^|random^|[0m for a random title.)
+ECHO Enter [92m^<back^>[0m (or [92m^|back^|[0m) to go back.
 ECHO.
 SETLOCAL enableDelayedExpansion
 SET /P title=""
-:::: TODO check for user entering ^<back^> or ^|back^|.
+IF /I !title!==^<back^> GOTO Command
+IF /I !title!==^|back^| GOTO Command
 :::: TODO generate random title upon user request.
 TITLE !title!
 ENDLOCAL
