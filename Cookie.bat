@@ -106,11 +106,13 @@ IF /I "%command%"=="exit" (
 
 IF /I "%command%"=="admin" (
 	SET adminMode=TRUE
+	ECHO Enabled [93madminMode[0m.
 	GOTO Command
 )
 
 IF /I "%command%"=="debug" (
 	SET debugMode=TRUE
+	ECHO Enabled [93mdebugMode[0m.
 	GOTO Command
 )
 
