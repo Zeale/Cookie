@@ -27,6 +27,9 @@ IF /I "%command%"=="exit" (
 	cls
 	EXIT /B
 )
+IF /I "%command%"=="cls" GOTO ClearScreen
+IF /I "%command%"=="clrscrn" GOTO ClearScreen
+IF /I "%command%"=="clearscreen" GOTO ClearScreen
 IF /I "%command%"=="copy" (
 	:: Allows us to access variables inside the IF statement.
 	SETLOCAL enableDelayedExpansion
@@ -77,6 +80,14 @@ destination file.
 		ENDLOCAL
 		ECHO Please press a key to continue...
 		PAUSE > NUL
+		GOTO Head
 	)
 )
+GOTO Head
+
+:ClearScreen
+cls
+ECHO [96mScreen cleared![0m
+ECHO.
+ECHO.
 GOTO Head
