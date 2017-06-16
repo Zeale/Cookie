@@ -83,6 +83,7 @@ destination file.
 		GOTO Head
 	)
 )
+ECHO [91mThe command, [95m%command%[91m, was unrecognized.[0m
 GOTO Head
 
 :ClearScreen
