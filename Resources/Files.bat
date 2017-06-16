@@ -129,8 +129,11 @@ GOTO Head
 :Delete
 SETLOCAL enableDelayedExpansion
 ECHO Enter the path of the file/directory that you wish to delete below. (Use backslashes to indicate nested items. e.g., C:\folder\file.txt)
+ECHO Type [92m^<back^>[0m or [92m^|back^|[0m to go back.
 ECHO.
 SET /P file=""
+IF !file!==^<back^> GOTO Head
+IF !file!==^|back^| GOTO Head
 DEL !file! && ECHO The delete operation returned successfully. || ECHO The delete operation returned unsuccessfully.
 ENDLOCAL
 GOTO :Head
