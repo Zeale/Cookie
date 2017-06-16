@@ -30,6 +30,8 @@ IF /I "%command%"=="exit" (
 IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
+IF /I "%command%"=="delete" GOTO Delete
+IF /I "%command%"=="delete" GOTO Delete
 IF /I "%command%"=="move" (
 	SETLOCAL enableDelayedExpansion
 	ECHO Enter the file that you wish to move. (Use backslashes in the path name.^)
@@ -123,3 +125,13 @@ ECHO [96mScreen cleared![0m
 ECHO.
 ECHO.
 GOTO Head
+
+:Delete
+SETLOCAL enableDelayedExpansion
+ECHO Enter the path of the file/directory that you wish to delete below. (Use backslashes to indicate nested items. e.g., C:\folder\file.txt)
+ECHO.
+SET /P file=""
+DEL !file! && ECHO The delete operation returned successfully. || ECHO The delete operation returned unsuccessfully.
+ENDLOCAL
+GOTO :Head
+
