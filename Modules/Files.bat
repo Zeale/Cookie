@@ -1,7 +1,7 @@
-:: This file will be included in the initial program.
+:: This module will be included in the initial program.
 @echo off
 IF NOT DEFINED Cookie.HeadLoaded (
-	ECHO Files.bat is an extension of Cookie.bat and, therefore, must be called from Cookie.bat.
+	ECHO %~n0%~x0 is an extension of Cookie.bat and, therefore, must be called from Cookie.bat.
 	TIMEOUT /T 10
 	GOTO :EOF
 )
