@@ -134,7 +134,8 @@ IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
-IF /I "%command%"=="files" CALL "%~dp0/Resources/Files.bat"
+IF /I "%command%"=="files" CALL "%~dp0\Modules\Files.bat"
+
 IF /I "%command:~0,7%"=="install" CALL "%~dp0\Modules\Install.bat" "%command:~8%"
 
 IF /I "%command%"=="color" GOTO Color
