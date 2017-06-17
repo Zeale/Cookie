@@ -154,9 +154,34 @@ IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
 IF /I "%command%"=="files" CALL "Zeale\Cookie\Modules\Files.bat"
 
-IF /I "%command:~0,7%"=="install" (
-	CALL "%~dp0\Modules\Install.bat" "%command:~8%"
-	GOTO Command
+IF "%Cookie.AdminMode%"=="TRUE" (
+	IF /I "%command:~0,7%"=="modules" (
+		SETLOCAL enableDelayedExpansion
+		SET module="%command:~8%"
+		GOTO Modules
+	)
+	IF /I "%command:~0,6%"=="module" (
+		SETLOCAL enableDelayedExpansion
+		SET module="%command:~7%"
+		GOTO Modules
+	)
+	IF /I "%command:~0,4%"=="mods" (
+		SETLOCAL enableDelayedExpansion
+		SET module="%command:~5%"
+		GOTO Modules
+	)
+	IF /I "%command:~0,3%"=="mod" (
+		SETLOCAL enableDelayedExpansion
+		SET module="%command:~4%"
+		GOTO Modules
+	)
+
+	IF /I "%command:~0,7%"=="install" (
+		CALL "%~dp0\Modules\Install.bat" "%command:~8%"
+		GOTO Command
+	)
+) ELSE (
+	ECHO [91mYou must run Cookie as an administrator to use this command.[0m
 )
 
 IF /I "%command%"=="color" GOTO Color
@@ -207,5 +232,30 @@ IF "!option!"=="1" (
 	GOTO Command
 )
 
+ENDLOCAL
+GOTO Command
+
+:Modules
+IF EXIST Zeale\Cookie\Modules\!module!.bat (
+	:: Module names can't have spaces, so there is no need for these quotes, but if something changes later...
+	CALL "Zeale\Cookie\Modules\!module!.bat"
+	:: Once they're done with that module, execution will come back here. Then we go to Command.
+	ENDLOCAL
+	GOTO Command
+)
+IF NOT !module!1==1 (
+	IF EXIST Zeale\Cookie\Modules\!module! (
+		CALL "Zeale\Cookie\Modules\!module!"
+		ENDLOCAL
+		GOTO Command
+	)
+)
+
+IF EXIST Zeale\Cookie\Modules\!module!.exe (
+	CALL "Zeale\Cookie\Modules\!module!.exe"
+	ENDLOCAL
+	GOTO Command
+)
+ECHO [91mThe module specified could not be found.[0m
 ENDLOCAL
 GOTO Command
