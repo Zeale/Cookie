@@ -49,6 +49,24 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 IF DEFINED Cookie.HeadLoaded (
 	IF "%Cookie.HeadLoaded%"=="TRUE" GOTO Command
 )
+IF NOT EXIST "%WINDIR%\System32\Zeale\Cookie\Modules" (
+	MD "%WINDIR%\System32\Zeale\Cookie\Modules" || (
+		ECHO Please run Cookie in administrator privileges for access to modules.
+		ECHO Press a key to continue.....
+		PAUSE > NUL
+		SET Cookie.AdminMode=FALSE
+	)
+) ELSE (
+	IF EXIST "%WINDIR%\System32\Zeale\TempFolder" RMDIR /S /Q "%WINDIR%\System32\Zeale\TempFolder"
+	
+	MD "%WINDIR%\System32\Zeale\TempFolder" || (
+		ECHO Please run Cookie in administrator privileges for access to modules.
+		ECHO Press a key to continue.....
+		PAUSE > NUL
+		SET Cookie.AdminMode=FALSE
+	)
+	IF EXIST "%WINDIR%\System32\Zeale\TempFolder" RMDIR /S /Q "%WINDIR%\System32\Zeale\TempFolder"
+)
 :: Display our little title
 ECHO Welcome to [91;1mCookie[0m!
 ECHO.
@@ -134,9 +152,12 @@ IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
-IF /I "%command%"=="files" CALL "%~dp0\Modules\Files.bat"
+IF /I "%command%"=="files" CALL "Zeale\Cookie\Modules\Files.bat"
 
-IF /I "%command:~0,7%"=="install" CALL "%~dp0\Modules\Install.bat" "%command:~8%"
+IF /I "%command:~0,7%"=="install" (
+	CALL "%~dp0\Modules\Install.bat" "%command:~8%"
+	GOTO Command
+)
 
 IF /I "%command%"=="color" GOTO Color
 
