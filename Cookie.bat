@@ -50,7 +50,7 @@ IF DEFINED Cookie.HeadLoaded (
 	IF "%Cookie.HeadLoaded%"=="TRUE" GOTO Command
 )
 IF NOT EXIST "%WINDIR%\System32\Zeale\Cookie\Modules" (
-	MD "%WINDIR%\System32\Zeale\Cookie\Modules" || (
+	MD "%WINDIR%\System32\Zeale\Cookie\Modules" && SET Cookie.AdminMode=TRUE || (
 		ECHO Please run Cookie in administrator privileges for access to modules.
 		ECHO Press a key to continue.....
 		PAUSE > NUL
@@ -59,7 +59,7 @@ IF NOT EXIST "%WINDIR%\System32\Zeale\Cookie\Modules" (
 ) ELSE (
 	IF EXIST "%WINDIR%\System32\Zeale\TempFolder" RMDIR /S /Q "%WINDIR%\System32\Zeale\TempFolder"
 	
-	MD "%WINDIR%\System32\Zeale\TempFolder" || (
+	MD "%WINDIR%\System32\Zeale\TempFolder" && SET Cookie.AdminMode=TRUE || (
 		ECHO Please run Cookie in administrator privileges for access to modules.
 		ECHO Press a key to continue.....
 		PAUSE > NUL
@@ -154,7 +154,7 @@ IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
 IF /I "%command%"=="files" CALL "Zeale\Cookie\Modules\Files.bat"
 
-IF "%Cookie.AdminMode%"=="TRUE" (
+IF %Cookie.AdminMode%==TRUE (
 	IF /I "%command:~0,7%"=="modules" (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~8%"
