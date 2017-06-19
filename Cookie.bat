@@ -94,16 +94,9 @@ TIMEOUT /T 1 >NUL
 :: will clear the screen to keep the "Please enter cmd" text at a good location for the viewer.
 ::
 :: The user can push a key to end from a single timeout call.
-ECHO [1S
 TIMEOUT /T 1 >NUL
-ECHO [1S
-TIMEOUT /T 1 >NUL
-ECHO [1S
-TIMEOUT /T 1 >NUL
-ECHO [1S
-TIMEOUT /T 1 >NUL
-ECHO [1S
-TIMEOUT /T 1 >NUL
+ECHO Press a key to continue...
+PAUSE > NUL
 CLS
 
 :: Query user for their command.
