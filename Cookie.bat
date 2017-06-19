@@ -264,5 +264,24 @@ ENDLOCAL
 GOTO Command
 
 :Uninstall
-DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%command:~10%.*"
+SET param=%command:~10%
+IF /I "%param:~-4%"==".bat" (
+	IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%")
+) ELSE (
+	IF /I "%param:~-4%"==".exe" (
+		IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%")
+	) ELSE (
+		IF EXIST "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.bat" (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.bat") ELSE (
+			IF EXIST "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.exe" (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.exe") ELSE (
+				ECHO [91mThe Module was not found...[0m
+				ECHO Press a key to continue...
+				PAUSE > NUL
+				GOTO Command
+			)
+		)
+	)
+)
+ECHO [92mThe module was successfully deleted![0m
+ECHO Press a key to continue...
+PAUSE > NUL
 GOTO Command
