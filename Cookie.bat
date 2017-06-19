@@ -87,6 +87,7 @@ powershell "start-sleep -m 0"
 
 IF %Cookie.AdminMode%==TRUE (
 	IF NOT EXIST Zeale\Cookie\Modules\Install.bat (
+		The installer module is missing. Attempting to install it now.
 		CALL bitsadmin.exe /transfer Cookie-Load-Installer "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/Install.bat" c:\Windows\System32\Zeale\Cookie\Modules\Install.bat
 	)
 )
@@ -264,10 +265,20 @@ GOTO Command
 :Uninstall
 SET param=%command:~10%
 IF /I "%param:~-4%"==".bat" (
-	IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%")
+	IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%") ELSE (
+		ECHO [91mThe Module was not found...[0m
+		ECHO Press a key to continue...
+		PAUSE > NUL
+		GOTO Command
+	)
 ) ELSE (
 	IF /I "%param:~-4%"==".exe" (
-		IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%")
+		IF EXIST %WINDIR%\System32\Zeale\Cookie\Modules\%param% (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%") ELSE (
+				ECHO [91mThe Module was not found...[0m
+				ECHO Press a key to continue...
+				PAUSE > NUL
+				GOTO Command
+			)
 	) ELSE (
 		IF EXIST "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.bat" (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.bat") ELSE (
 			IF EXIST "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.exe" (DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%param%.exe") ELSE (
