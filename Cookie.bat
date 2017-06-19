@@ -85,6 +85,11 @@ ECHO Initializing [94mPowershell[0m
 :: Call random powershell cmd to wake it up.
 powershell "start-sleep -m 0"
 
+IF %Cookie.AdminMode%==TRUE (
+	IF NOT EXIST Zeale\Cookie\Modules\Install.bat (
+		CALL bitsadmin.exe /transfer Cookie-Load-Installer "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/Install.bat" c:\Windows\System32\Zeale\Cookie\Modules\Install.bat
+	)
+)
 ECHO.
 ECHO [93;1mDONE[0m [93;1m:D[0m
 
