@@ -110,6 +110,7 @@ CLS
 
 ECHO [97;1mPlease enter your command below.[0m
 ECHO.
+SET "command="
 SET /P command=""
 
 IF /I "%command%"=="exit" (
