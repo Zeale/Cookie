@@ -155,6 +155,9 @@ IF /I "%command%"=="clearscreen" GOTO ClearScreen
 IF /I "%command%"=="files" CALL "Zeale\Cookie\Modules\Files.bat"
 
 IF %Cookie.AdminMode%==TRUE (
+	IF /I "%command:~0,9%"=="uninstall" (
+		GOTO Uninstall
+	)
 	IF /I "%command:~0,7%"=="modules" (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~8%"
@@ -258,4 +261,8 @@ IF EXIST Zeale\Cookie\Modules\!module!.exe (
 )
 ECHO [91mThe module specified could not be found.[0m
 ENDLOCAL
+GOTO Command
+
+:Uninstall
+DEL /Q /F "%WINDIR%\System32\Zeale\Cookie\Modules\%command:~10%.*"
 GOTO Command
