@@ -229,9 +229,9 @@ IF "!option!"=="1" (
 	ECHO Please enter a Hex color code below.
 	ECHO.
 	SET /P color=""
-	COLOR !color! || ECHO TEST
+	COLOR !color!
+	ECHO Attempting to change the color...
 	pause
-	ECHO Colors have been set!
 	GOTO Command
 )
 
