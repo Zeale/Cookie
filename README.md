@@ -8,7 +8,7 @@
 <br>
 <br>
 
-<p align="center">Cookie is a random batch application separated into modules. Modules are stored and uploaded here, to github, in this repository, and Cookie can install them with a single command. Althought the program comes with some out-of-the-box features, *those features are trash, and you will likely find no use in them whatsoever*, so please, download whatever modules you want. Go crazy.</p>
+<p align="center">Cookie is a random batch application separated into modules. Modules are stored and uploaded here, to github, in this repository, and Cookie can install them with a single command. Althought the program comes with some out-of-the-box features, those features are trash, and you will likely find no use in them whatsoever, so please, download whatever modules you want. Go crazy.</p>
 <br>
 <br>
 <br>
