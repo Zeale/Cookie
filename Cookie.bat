@@ -96,9 +96,6 @@ ECHO [93;1mDONE[0m [93;1m:D[0m
 
 TIMEOUT /T 1 >NUL
 
-:: Scroll down (move text up) by one line each call (each second). This occurs five times. At last the program
-:: will clear the screen to keep the "Please enter cmd" text at a good location for the viewer.
-::
 :: The user can push a key to end from a single timeout call.
 TIMEOUT /T 1 >NUL
 ECHO Press a key to continue...
@@ -112,6 +109,11 @@ ECHO [97;1mPlease enter your command below.[0m
 ECHO.
 SET "command="
 SET /P command=""
+
+IF /I "%command%"=="no" (
+	ECHO ok.
+	GOTO :Command
+)
 
 IF /I "%command%"=="exit" (
 	SET /P check="Are you sure???... (Y/N?)   "
