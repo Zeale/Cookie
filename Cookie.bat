@@ -120,9 +120,11 @@ IF /I "%command%"=="no" (
 IF /I "%command%"=="exit" (
 	SETLOCAL enableDelayedExpansion
 	SET /P check="Are you sure???... (Y/N?)   "
-	ECHO "!check!"
 	IF /I "!check!"=="Y" EXIT /B
-	IF /I "!check!"=="N" (
+	IF /I "!check!"=="Yes" EXIT /B
+	IF /I "!check!"=="N" SET value=0
+	IF /I "!check!"=="No" SET value=0
+	IF "!value!"=="0" (
 		ECHO Aborted exit...
 		SETLOCAL disableDelayedExpansion
 		GOTO Command
