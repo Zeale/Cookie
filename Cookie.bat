@@ -112,16 +112,22 @@ SET /P command=""
 
 IF /I "%command%"=="no" (
 	ECHO ok.
-	GOTO :Command
+	GOTO Command
 )
 
+
+:_exit_1
 IF /I "%command%"=="exit" (
+	SETLOCAL enableDelayedExpansion
 	SET /P check="Are you sure???... (Y/N?)   "
+	ECHO "!check!"
 	IF /I "!check!"=="Y" EXIT /B
 	IF /I "!check!"=="N" (
 		ECHO Aborted exit...
+		SETLOCAL disableDelayedExpansion
 		GOTO Command
 	)
+	GOTO _exit_1
 )
 
 IF /I "%command%"=="admin" (
