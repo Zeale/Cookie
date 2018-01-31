@@ -11,15 +11,15 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 2. The program starts in this file and immediately goes to the head label below, so all of these "notes"
 	don't get processed as batch commands.
 	
-	NOTE: that the :Head label directly leads into the :Command label; there are no needs for GOTO
-	statements since the :Command label directly proceeds the :Head label. After :Head is done, :Command is
+	NOTE: The :Head label leads directly into the :Command label; there are no needs for GOTO
+	statements since the :Head label immediately follows the :Command label. After :Head is done, :Command is
 	run.
 
-3. All my "TODO" markings have been stated with 4 semicolons, rather than only two. This makes them slightly
+3. All my "TODO" markings begin with 4 colons, rather than only two. This makes them slightly
 	easier to find.
 
-4. NOTE: If you find a "^" character infornt of any closing parentheses inside an if block, don't remove it.
-	It's used to escape the parenthesis.
+4. NOTE: If you find a "^" character in front of any closing parentheses inside an if block, don't remove it.
+	It's used as an escape character for the parenthesis.
 	
 		Remember that batch parses for syntax errors before it begins execution. Batch parses the following IF statement...
 	
@@ -87,7 +87,7 @@ powershell "start-sleep -m 0"
 
 IF %Cookie.AdminMode%==TRUE (
 	IF NOT EXIST Zeale\Cookie\Modules\Install.bat (
-		The installer module is missing. Attempting to install it now.
+		ECHO The installer module is missing. Attempting to install it now.
 		CALL bitsadmin.exe /transfer Cookie-Load-Installer "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/Install.bat" c:\Windows\System32\Zeale\Cookie\Modules\Install.bat
 	)
 )
@@ -111,11 +111,11 @@ SET "command="
 SET /P command=""
 
 IF /I "%command%"=="no" (
-	ECHO ok.
+	ECHO ok. :(
 	GOTO Command
 )
 
-
+:: This label's name looks disgusting.
 :_exit_1
 IF /I "%command%"=="exit" (
 	SETLOCAL enableDelayedExpansion
