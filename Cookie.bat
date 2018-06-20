@@ -203,6 +203,34 @@ ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
 GOTO Command
 
+:: Returns 1 if the specified module is installed (i.e. it is accessible) and 0 if it is not. The module to check is specified with the first parameter for this label.
+:checkIfModuleInstalled
+:: Check the Module Install directory folder.
+CALL :getFileName
+SET filename="%return%"
+IF EXIST C:\Windows\System32\Zeale\Cookie\Modules\%filename% (
+	SET return=1
+:: Check the Sibling Module folder.
+) ELSE IF EXIST Modules\%filename% (
+	SET return=1
+:: The Module wasn't found; return 0.
+) ELSE (
+	SET return=0
+)
+GOTO:EOF
+
+:: Attempts to install the specified module. If a call to :bits-start fails using the github repository, the module is installed from dusttoash.org. If that also fails, the errorlevel is set to 1, otherwise, the errorlevel is set to 0.
+:: Note that if the source file location specified contains no extension, a ".bat" is concatenated to it, unless an extra parameter is specified.
+:installModule
+SET filename=%~1
+IF NOT DEFINED %2 (
+	SETLOCAL enableDelayedExpansion
+	CALL :getFileName
+	SET filename=%return%
+)
+CALL :bits-start "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/%filename%" C:\Windows\System32\Zeale\Cookie\Modules\%filename%
+GOTO:EOF
+
 :: Attempts to download the specified resource and save it to the specified location. bitsadmin is used if it is available. If attempting to use it flags the errorlevel, powershell's bitsadmin cmdlets are used instead.
 :bits-start
 CALL bitsadmin.exe /transfer Cookie-Download-Process-%RANDOM% %1 %2 || (
