@@ -324,7 +324,18 @@ SETLOCAL enableDelayedExpansion
 SET /P title=""
 IF /I !title!==^<back^> GOTO Command
 IF /I !title!==^|back^| GOTO Command
+
+IF /I !title!==^|random^| GOTO Title.GenerateRandomTitle
+IF /I !title!==^<random^> GOTO Title.GenerateRandomTitle
+
+GOTO Title.GenerateRandomTitle-END
+:Title.GenerateRandomTitle
+ECHO Getting a random title...
+TIMEOUT /T 3
+:: CALL genTitle or something
 :::: TODO generate random title upon user request.
+:Title.GenerateRandomTitle-END
+
 TITLE !title!
 ENDLOCAL
 GOTO Command
