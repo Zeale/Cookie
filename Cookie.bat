@@ -88,7 +88,7 @@ powershell "start-sleep -m 0"
 IF %Cookie.AdminMode%==TRUE (
 	IF NOT EXIST Zeale\Cookie\Modules\Install.bat (
 		ECHO The installer module is missing. Attempting to install it now.
-		CALL bitsadmin.exe /transfer Cookie-Load-Installer "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/Install.bat" c:\Windows\System32\Zeale\Cookie\Modules\Install.bat
+		CALL :bits-start "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/Install.bat" c:\Windows\System32\Zeale\Cookie\Modules\Install.bat
 	)
 )
 ECHO.
@@ -188,7 +188,6 @@ IF %Cookie.AdminMode%==TRUE (
 		SET module="%command:~4%"
 		GOTO Modules
 	)
-
 	IF /I "%command:~0,7%"=="install" (
 		CALL "%~dp0\Modules\Install.bat" "%command:~8%"
 		GOTO Command
@@ -203,6 +202,13 @@ IF /I "%command%"=="color" GOTO Color
 ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
 GOTO Command
+
+:: Attempts to download the specified resource and save it to the specified location. bitsadmin is used if it is available. If attempting to use it flags the errorlevel, powershell's bitsadmin cmdlets are used instead.
+:bits-start
+CALL bitsadmin.exe /transfer Cookie-Download-Process-%RANDOM% %1 %2 || (
+	powershell Start-BitsTransfer -Source %1 -Destination %2
+)
+GOTO:EOF
 
 :ClearScreen
 cls
