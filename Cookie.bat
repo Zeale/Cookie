@@ -49,8 +49,15 @@ Welcome to COOKIE. A couple of notes here before the program starts.
 IF DEFINED Cookie.HeadLoaded (
 	IF "%Cookie.HeadLoaded%"=="TRUE" GOTO Command
 )
-IF NOT EXIST "%WINDIR%\System32\Zeale\Cookie\Modules" (
-	MD "%WINDIR%\System32\Zeale\Cookie\Modules" && SET Cookie.AdminMode=TRUE || (
+
+:: Constants
+IF NOT DEFINED Cookie.MODULE_FOLDER SET Cookie.MODULE_FOLDER="%WINDIR%\System32\Zeale\Cookie\Modules"
+IF NOT DEFINED Cookie.ASSET_FOLDER SET Cookie.ASSET_FOLDER="%WINDIR%\System32\Zeale\Cookie\Assets"
+IF NOT DEFINED Cookie.RESOURCE_FOLDER SET Cookie.RESOURCE_FOLDER="%WINDIR%\System32\Zeale\Cookie\Resources"
+IF NOT DEFINED Cookie.TOOLS_FOLDER SET Cookie.TOOLS_FOLDER="%WINDIR%\System32\Zeale\Cookie\Tools"
+
+IF NOT EXIST "%Cookie.MODULE_FOLDER%" (
+	MD "%Cookie.MODULE_FOLDER%" && SET Cookie.AdminMode=TRUE || (
 		ECHO Please run Cookie in administrator privileges for access to modules.
 		ECHO Press a key to continue.....
 		PAUSE > NUL
@@ -163,7 +170,7 @@ IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
 IF /I "%command%"=="files" (
-	IF EXIST C:\Windows\System32\Zeale\Cookie\Modules\Files.bat (
+	IF EXIST %Cookie.MODULE_FOLDER%\Files.bat (
 		CALL "Zeale\Cookie\Modules\Files.bat"
 	)ELSE IF EXIST Modules\Files.bat (
 		CALL "Modules\Files.bat"
@@ -176,7 +183,6 @@ IF /I "%command%"=="files" (
 SET "adminPermsRequired="
 
 IF /I "%command:~0,9%"=="uninstall" (
-	
 	IF %Cookie.AdminMode%==TRUE (
 		GOTO Uninstall
 	) ELSE SET adminPermsRequired=1
