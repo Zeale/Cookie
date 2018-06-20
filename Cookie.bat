@@ -190,29 +190,49 @@ IF /I "%command:~0,9%"=="uninstall" (
 IF /I "%command:~0,7%"=="modules" (
 	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
-		SET module="%command:~8%"
-		GOTO Modules
+		IF 1%command:~8%==1 (
+			ECHO [91mPlease enter in the name of the module along with this command.[0m
+			GOTO Command
+		) ELSE (
+			SET module="%command:~8%"
+			GOTO Modules
+		)
 	) ELSE SET adminPermsRequired=1
 )
 IF /I "%command:~0,6%"=="module" (
 	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
-		SET module="%command:~7%"
-		GOTO Modules
+		IF 1%command:~7%==1 (
+			ECHO [91mPlease enter in the name of the module along with this command.[0m
+			GOTO Command
+		) ELSE (
+			SET module="%command:~7%"
+			GOTO Modules
+		)
 	) ELSE SET adminPermsRequired=1
 )
 IF /I "%command:~0,4%"=="mods" (
 	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
-		SET module="%command:~5%"
-		GOTO Modules
+		IF 1%command:~5%==1 (
+			ECHO [91mPlease enter in the name of the module along with this command.[0m
+			GOTO Command
+		) ELSE (
+			SET module="%command:~5%"
+			GOTO Modules
+		)
 	) ELSE SET adminPermsRequired=1
 )
 IF /I "%command:~0,3%"=="mod" (
 	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
-		SET module="%command:~4%"
-		GOTO Modules
+		IF 1%command:~4%==1 (
+			ECHO [91mPlease enter in the name of the module along with this command.[0m
+			GOTO Command
+		) ELSE (
+			SET module="%command:~4%"
+			GOTO Modules
+		)
 	) ELSE SET adminPermsRequired=1
 )
 IF /I "%command:~0,7%"=="install" (
@@ -325,6 +345,7 @@ ENDLOCAL
 GOTO Command
 
 :Modules
+
 IF EXIST Zeale\Cookie\Modules\!module!.bat (
 	:: Module names can't have spaces, so there is no need for these quotes, but if something changes later...
 	CALL "Zeale\Cookie\Modules\!module!.bat"
