@@ -231,6 +231,12 @@ IF NOT DEFINED %2 (
 CALL :bits-start "https://raw.githubusercontent.com/Zeale/Cookie/master/Modules/%filename%" C:\Windows\System32\Zeale\Cookie\Modules\%filename%
 GOTO:EOF
 
+:getFileName
+SET filename=%~1
+IF a%filename:.=%==a%filename% SET "filename"="%filename%.bat"
+set return="%filename%"
+GOTO:EOF
+
 :: Attempts to download the specified resource and save it to the specified location. bitsadmin is used if it is available. If attempting to use it flags the errorlevel, powershell's bitsadmin cmdlets are used instead.
 :bits-start
 CALL bitsadmin.exe /transfer Cookie-Download-Process-%RANDOM% %1 %2 || (
