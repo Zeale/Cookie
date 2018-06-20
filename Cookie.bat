@@ -173,36 +173,53 @@ IF /I "%command%"=="files" (
 	GOTO Command
 )
 
-IF %Cookie.AdminMode%==TRUE (
-	IF /I "%command:~0,9%"=="uninstall" (
+SET "adminPermsRequired="
+
+IF /I "%command:~0,9%"=="uninstall" (
+	
+	IF %Cookie.AdminMode%==TRUE (
 		GOTO Uninstall
-	)
-	IF /I "%command:~0,7%"=="modules" (
+	) ELSE SET adminPermsRequired=1
+)
+IF /I "%command:~0,7%"=="modules" (
+	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~8%"
 		GOTO Modules
-	)
-	IF /I "%command:~0,6%"=="module" (
+	) ELSE SET adminPermsRequired=1
+)
+IF /I "%command:~0,6%"=="module" (
+	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~7%"
 		GOTO Modules
-	)
-	IF /I "%command:~0,4%"=="mods" (
+	) ELSE SET adminPermsRequired=1
+)
+IF /I "%command:~0,4%"=="mods" (
+	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~5%"
 		GOTO Modules
-	)
-	IF /I "%command:~0,3%"=="mod" (
+	) ELSE SET adminPermsRequired=1
+)
+IF /I "%command:~0,3%"=="mod" (
+	IF %Cookie.AdminMode%==TRUE (
 		SETLOCAL enableDelayedExpansion
 		SET module="%command:~4%"
 		GOTO Modules
-	)
-	IF /I "%command:~0,7%"=="install" (
+	) ELSE SET adminPermsRequired=1
+)
+IF /I "%command:~0,7%"=="install" (
+	IF %Cookie.AdminMode%==TRUE (
 		CALL "%~dp0\Modules\Install.bat" "%command:~8%"
 		GOTO Command
-	)
-) ELSE (
+	) ELSE SET adminPermsRequired=1
+)
+
+IF DEFINED adminPermsRequired (
 	ECHO [91mYou must run Cookie as an administrator to use this command.[0m
+	SET "adminPermsRequired="
+	GOTO Command
 )
 
 IF /I "%command%"=="color" GOTO Color
