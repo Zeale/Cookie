@@ -212,6 +212,8 @@ ECHO The command, [92m%command%[0m, was unrecognized.
 ECHO.
 GOTO Command
 
+::: ------------------------------------------------------------------------ METHODS ------------------------------------------------------------------------ :::
+
 :: Returns 1 if the specified module is installed (i.e. it is accessible) and 0 if it is not. The module to check is specified with the first parameter for this label.
 :checkIfModuleInstalled
 :: Check the Module Install directory folder.
@@ -232,7 +234,7 @@ GOTO:EOF
 :: Note that if the source file location specified contains no extension, a ".bat" is concatenated to it, unless an extra parameter is specified.
 :installModule
 SET filename=%~1
-IF NOT DEFINED %2 (
+IF NOT [%2]==[] (
 	SETLOCAL enableDelayedExpansion
 	CALL :getFileName
 	SET filename=%return%
@@ -252,6 +254,8 @@ CALL bitsadmin.exe /transfer Cookie-Download-Process-%RANDOM% %1 %2 || (
 	powershell Start-BitsTransfer -Source %1 -Destination %2
 )
 GOTO:EOF
+
+::: ------------------------------------------------------------------------ COMMANDS ------------------------------------------------------------------------ :::
 
 :ClearScreen
 cls
