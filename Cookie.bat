@@ -180,6 +180,15 @@ IF /I "%command%"=="files" (
 	GOTO Command
 )
 
+IF /I "%command%"=="author" (
+	START "" https://github.com/Zeale
+	GOTO Command
+)
+IF /I "%command%"=="website" (
+	START "" http://dusttoash.org/
+	GOTO Command
+)
+
 SET "adminPermsRequired="
 
 IF /I "%command:~0,9%"=="uninstall" (
@@ -345,7 +354,6 @@ ENDLOCAL
 GOTO Command
 
 :Modules
-
 IF EXIST Zeale\Cookie\Modules\!module!.bat (
 	:: Module names can't have spaces, so there is no need for these quotes, but if something changes later...
 	CALL "Zeale\Cookie\Modules\!module!.bat"
