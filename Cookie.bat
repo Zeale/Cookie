@@ -162,7 +162,16 @@ IF /I "%command%"=="cls" GOTO ClearScreen
 IF /I "%command%"=="clrscrn" GOTO ClearScreen
 IF /I "%command%"=="clearscreen" GOTO ClearScreen
 
-IF /I "%command%"=="files" CALL "Zeale\Cookie\Modules\Files.bat"
+IF /I "%command%"=="files" (
+	IF EXIST C:\Windows\System32\Zeale\Cookie\Modules\Files.bat (
+		CALL "Zeale\Cookie\Modules\Files.bat"
+	)ELSE IF EXIST Modules\Files.bat (
+		CALL "Modules\Files.bat"
+	) ELSE (
+		ECHO The [33mFiles[0m module has not been installed.
+	)
+	GOTO Command
+)
 
 IF %Cookie.AdminMode%==TRUE (
 	IF /I "%command:~0,9%"=="uninstall" (
